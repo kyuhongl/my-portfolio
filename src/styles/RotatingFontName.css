@@ -1,0 +1,77 @@
+.font-morph-container {
+    position: relative;
+    height: 3.5rem;
+    perspective: 1000px;
+  }
+  
+  .font-morph {
+    position: absolute;
+    animation: morphFont 105ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+  }
+  
+  @keyframes morphFont {
+    0% {
+      opacity: 0;
+      filter: blur(8px);
+      transform: 
+        translateZ(-100px)
+        rotateX(15deg)
+        scale(0.9);
+    }
+    
+    50% {
+      opacity: 0.5;
+      filter: blur(4px);
+      transform: 
+        translateZ(50px)
+        rotateX(-7deg)
+        scale(1.1);
+    }
+    
+    100% {
+      opacity: 1;
+      filter: blur(0);
+      transform: 
+        translateZ(0)
+        rotateX(0)
+        scale(1);
+    }
+  }
+  
+  /* Optional: Add these classes for better performance */
+  .font-morph {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity, filter;
+  }
+  
+  /* Optional: Add this if you want a smoother fade between states */
+  .font-morph-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255,255,255,0.1) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    animation: shine 105ms linear;
+  }
+  
+  @keyframes shine {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
